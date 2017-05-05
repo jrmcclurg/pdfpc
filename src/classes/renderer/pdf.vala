@@ -75,7 +75,7 @@ namespace pdfpc {
             this.area = area;
 
             // Calculate the scaling factor needed.
-            this.scaling_factor = Math.fmax(width / metadata.get_page_width(),
+            this.scaling_factor = Math.fmax(width / (metadata.get_page_width() * 2.0),
                 height / metadata.get_page_height());
         }
 
@@ -118,8 +118,8 @@ namespace pdfpc {
             cr.fill();
 
             cr.scale(this.scaling_factor, this.scaling_factor);
-            cr.translate(-metadata.get_horizontal_offset(this.area),
-                -metadata.get_vertical_offset(this.area));
+            /*cr.translate(-metadata.get_horizontal_offset(this.area),
+                -metadata.get_vertical_offset(this.area));*/
             page.render(cr);
 
             // If the cache is enabled store the newly rendered pixmap

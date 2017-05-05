@@ -153,7 +153,10 @@ namespace pdfpc {
         public Pdf.from_metadata(Metadata.Pdf metadata, int width, int height,
                                  Metadata.Area area, bool allow_black_on_end, bool clickable_links,
                                  PresentationController presentation_controller, int gdk_scale_factor, out Gdk.Rectangle scale_rect = null) {
-            var scaler = new Scaler(metadata.get_page_width(), metadata.get_page_height());
+            var w = metadata.get_page_width();
+            if(area == Metadata.Area.NOTES) w *= 2;
+
+            var scaler = new Scaler(w, metadata.get_page_height());
             scale_rect = scaler.scale_to(width, height);
 
             scale_rect.width *= gdk_scale_factor;
